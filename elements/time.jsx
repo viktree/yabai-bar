@@ -6,8 +6,7 @@ import theme from "../lib/theme";
 
 const render = ({ error, side, battery }) => {
   const dateObj = new Date();
-  const date = strftime("%a %d", dateObj);
-  const time = strftime("%l:%M", dateObj);
+  const time = strftime("%k:%M", dateObj);
 
   if (error) {
     <ClockSectionBackground batteryAmt={battery} side={side} />;

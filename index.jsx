@@ -12,6 +12,7 @@ const LocalFontAwsomeHeader = () => (
 );
 
 const FullBar = ({ output, error }) => {
+  console.log("vikram", output);
   if (error) {
     console.log(new Date() + " " + error);
     return <Bar>{error}</Bar>;
@@ -41,7 +42,7 @@ const FullBar = ({ output, error }) => {
 
 const Bar = styled("div")`
  position: fixed;
- top: 5px;
+ top: 10px;
  right: ${theme.margin};
  left: ${theme.margin};
  background: ${theme.background};
@@ -62,7 +63,8 @@ export const updateState = event => {
   } catch (error) {
     console.log(new Date());
     console.log("Output of bar.sh is not valid JSON");
-    console.log("Output from bar.sh:", event.output);
+    console.log("Output from bar.sh:", event);
+    console.log("Output from bar.sh (parsed):", event.output);
     return { error: "Failed to update bar. See refresh logs." };
   }
 };
