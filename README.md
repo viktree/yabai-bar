@@ -34,6 +34,6 @@ This is how it looks on my screen:
 
 
 
-### How does it do this?
+### What is it doing behind the scenes?
 
 There are two scripts in the scripts folder that poll the yabai API and my local instance of spotify for the information that it need. Later I might change this to read from a websocket, but for now I don't notice any performance problems. Only a nice clean bar at the top of my screen.
