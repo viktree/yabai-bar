@@ -55,7 +55,7 @@ const Bar = styled("div")`
 `;
 
 export const command = "sh ./bar.widget/scripts/bar.sh";
-export const refreshFrequency = 1000; // ms
+export const refreshFrequency = 1000; // in ms
 export const initialState = { error: "Initializing bar ..." };
 export const updateState = event => {
   try {
@@ -69,3 +69,4 @@ export const updateState = event => {
   }
 };
 export const render = FullBar;
+
