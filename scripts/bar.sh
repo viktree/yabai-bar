@@ -2,7 +2,7 @@
 
 PATH=/usr/local/bin/:$PATH
 
-jq="/run/current-system/sw/bin/jq"
+jq="/usr/local/bin/jq"
 
 playing=$(osascript ./bar.widget/scripts/playing.scpt | sed "s/\"/'/g")
 index=$(yabai -m query --spaces --display 1 | $jq '.[] | select(.focused == 1).index')
