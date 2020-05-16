@@ -1,6 +1,8 @@
 import { styled } from "uebersicht";
 
 import theme from "./lib/theme";
+import computeBatteryColor from "./lib/batteryColor";
+
 import { Time, Spotify, Yabai } from "./elements/index.jsx";
 
 const LocalFontAwsomeHeader = () => (
@@ -19,15 +21,17 @@ const FullBar = ({ output, error }) => {
   }
 
   try {
-    const { spotify, battery, yabai } = output;
+    const { spotify, battery, time, yabai } = output;
     const { current, total } = yabai.primary;
+
+    const batteryColour = computeBatteryColor(battery);
 
     return (
       <Bar>
         <LocalFontAwsomeHeader />
-        <Yabai total={total} current={current} battery={battery} />
+        <Yabai battery={batteryColour} total={total} current={current} />
         <Spotify data={spotify} />
-        <Time side="right" battery={battery} />
+        <Time battery={batteryColour} isCharging={true} time={time} />
       </Bar>
     );
   } catch (e) {
@@ -41,17 +45,21 @@ const FullBar = ({ output, error }) => {
 };
 
 const Bar = styled("div")`
- position: fixed;
- top: 10px;
- right: ${theme.margin};
- left: ${theme.margin};
- background: ${theme.background};
- color: ${theme.foreground};
- height: ${theme.barHeight};
- font-family: ${theme.font};
- font-size: ${theme.fontSize};
- overflow: hidden;
-};
+  position: fixed;
+  top: 10px;
+  right: ${theme.margin};
+  left: ${theme.margin};
+
+  background: ${theme.background};
+  color: ${theme.foreground};
+
+  height: ${theme.barHeight};
+  lineheight: ${theme.barHeight};
+
+  font-family: ${theme.font};
+  font-size: ${theme.fontSize};
+
+  overflow: hidden;
 `;
 
 export const command = "sh ./bar.widget/scripts/bar.sh";
@@ -69,4 +77,3 @@ export const updateState = event => {
   }
 };
 export const render = FullBar;
-

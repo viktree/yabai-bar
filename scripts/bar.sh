@@ -13,7 +13,14 @@ primary_space_count=$(yabai -m query --spaces --display 1 | $jq length)
 battery=`pmset -g batt | egrep '(\\d+)\%' -o | cut -f1 -d%`
 
 # shellcheck disable=SC2039
-charging=$(if [[ $(pmset -g ps | head -1) =~ "AC" ]]; then echo "true"; else echo "false"; fi)
+
+check=$(pmset -g batt)
+if [ "${check/AC}" = "$check" ]
+then charging="false"
+else charging="true"
+fi
+
+time=$(date +"%H:%M")
 
 cat <<-EOF
 {
@@ -21,6 +28,7 @@ cat <<-EOF
     "spotify": "$playing",
     "charging": "$charging",
     "battery": "$battery",
+    "time": "$time",
     "yabai": {
       "primary": {
           "current": "$index",

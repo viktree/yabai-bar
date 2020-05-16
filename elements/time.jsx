@@ -1,19 +1,13 @@
 import { styled } from "uebersicht";
-
-import strftime from "../lib/strftime.js";
-import computeBatteryColor from "../lib/batteryColor";
 import theme from "../lib/theme";
 
-const render = ({ error, side, battery }) => {
-  const dateObj = new Date();
-  const time = strftime("%k:%M", dateObj);
-
+const render = ({ error, battery, time }) => {
   if (error) {
-    <ClockSectionBackground batteryAmt={battery} side={side} />;
+    <ClockSectionBackground battery={battery} />;
   }
 
   return (
-    <ClockSectionBackground batteryAmt={battery} side={side}>
+    <ClockSectionBackground battery={battery}>
       <ClockIcon className="far fa-clock" />
       {time}
     </ClockSectionBackground>
@@ -21,16 +15,15 @@ const render = ({ error, side, battery }) => {
 };
 
 const ClockIcon = styled("i")`
-  padding-right: 5px;
+  padding: 0 5px;
+  overflow: hidden;
 `;
 
 const ClockSectionBackground = styled("span")(props => ({
-  lineHeight: theme.barHeight,
-  padding: "0 1%",
-  background: computeBatteryColor(props.batteryAmt),
+  padding: "0.4% 1%",
+  background: props.battery,
   color: theme.background,
-  overflow: "hidden",
-  float: props.side
+  float: "right"
 }));
 
 export default render;

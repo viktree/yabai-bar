@@ -1,20 +1,16 @@
 import { styled } from "uebersicht";
-
-import computeBatteryColor from "../lib/batteryColor";
 import theme from "../lib/theme";
 
 const render = ({ total, current, battery }) => (
-  <YabaiSectionBackground batteryAmt={battery}>
+  <YabaiSectionBackground battery={battery}>
     {current + " of " + total}
   </YabaiSectionBackground>
 );
 
 const YabaiSectionBackground = styled("span")(props => ({
-  lineHeight: theme.barHeight,
   padding: theme.fontSize,
-  background: computeBatteryColor(props.batteryAmt),
-  color: theme.background,
-  overflow: "hidden"
+  background: props.battery,
+  color: theme.background
 }));
 
 export default render;
