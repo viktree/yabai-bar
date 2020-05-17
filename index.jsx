@@ -1,7 +1,6 @@
 import { styled } from "uebersicht";
 
 import theme from "./lib/theme";
-import computeBatteryColor from "./lib/batteryColor";
 
 import { Time, Spotify, Yabai } from "./elements/index.jsx";
 
@@ -13,8 +12,18 @@ const LocalFontAwsomeHeader = () => (
   />
 );
 
+const USE_BASE_TEN = 10;
+
+const computeBatteryColor = data => {
+  const level = parseInt(data, USE_BASE_TEN);
+  if (level > 90) return "#A1BA89";
+  if (level > 50) return "#7D837B";
+  if (level > 15) return "#87A0B2";
+  if (level > 8) return "#F2C57C";
+  return "#E57373";
+};
+
 const FullBar = ({ output, error }) => {
-  console.log("vikram", output);
   if (error) {
     console.log(new Date() + " " + error);
     return <Bar>{error}</Bar>;

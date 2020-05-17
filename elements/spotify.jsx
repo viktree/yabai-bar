@@ -1,15 +1,22 @@
-import { styled } from "uebersicht";
+import { styled, run } from "uebersicht";
 
 const nothingPlaying = data => data == "" && data.length === 0;
 
-export const render = ({ error, data }, dispatch) => {
+export const render = ({ error, data }) => {
+  const sendEvent = async () => {
+    const output = await run(
+      "osascript -e 'tell application \"Spotify\" to next track'"
+    );
+    console.log(output);
+  };
+
   if (error) {
     return <NowPlayingSection />;
   } else if (nothingPlaying(data)) {
-    return <NowPlayingSection></NowPlayingSection>;
+    return <NowPlayingSection />;
   } else {
     return (
-      <NowPlayingSection>
+      <NowPlayingSection onClick={sendEvent}>
         <MusicIcon className="fas fa-music" />
         {data}
       </NowPlayingSection>

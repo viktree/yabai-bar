@@ -20,7 +20,7 @@ const ClockIcon = styled("i")`
 `;
 
 const ClockSectionBackground = styled("span")(props => ({
-  padding: "0.4% 1%",
+  padding: "0.2% 1%",
   background: props.battery,
   color: theme.background,
   float: "right"

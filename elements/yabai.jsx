@@ -3,7 +3,8 @@ import theme from "../lib/theme";
 
 const render = ({ total, current, battery }) => (
   <YabaiSectionBackground battery={battery}>
-    {current + " of " + total}
+    {current}
+    {/* {current + " of " + total} */}
   </YabaiSectionBackground>
 );
 
