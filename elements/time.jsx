@@ -15,12 +15,12 @@ const render = ({ error, battery, time }) => {
 };
 
 const ClockIcon = styled("i")`
-  padding: 0 5px;
+  padding-right: 5px;
   overflow: hidden;
 `;
 
 const ClockSectionBackground = styled("span")(props => ({
-  padding: "0.4%",
+  padding: "0 1%",
   background: props.battery,
   color: theme.background,
   float: "right"

@@ -3,13 +3,13 @@ import theme from "../lib/theme";
 
 const render = ({ total, current, battery }) => (
   <YabaiSectionBackground battery={battery}>
-    {current}
-    {/* {current + " of " + total} */}
+    {/* {current} */}
+    {current + " of " + total}
   </YabaiSectionBackground>
 );
 
 const YabaiSectionBackground = styled("span")(props => ({
-  padding: theme.fontSize,
+  padding: "0.4% 1%",
   background: props.battery,
   color: theme.background
 }));
