@@ -3,21 +3,23 @@ import { styled, run } from "uebersicht";
 const nothingPlaying = data => data == "" && data.length === 0;
 
 export const render = ({ error, data }) => {
-  const sendEvent = async () => {
-    const output = await run(
-      "osascript -e 'tell application \"Spotify\" to next track'"
-    );
-    console.log(output);
-  };
+  const playPreviousTrack = () =>
+    run("osascript -e 'tell application \"Spotify\" to previous track'");
 
-  if (error) {
-    return <NowPlayingSection />;
-  } else if (nothingPlaying(data)) {
-    return <NowPlayingSection />;
+  const pauseTrack = () =>
+    run("osascript -e 'tell application \"Spotify\" to pause track'");
+
+  const playNextTrack = () =>
+    run("osascript -e 'tell application \"Spotify\" to next track'");
+
+  if (error || nothingPlaying(data)) {
+    return "";
   } else {
     return (
-      <NowPlayingSection onClick={sendEvent}>
-        <MusicIcon className="fas fa-music" />
+      <NowPlayingSection>
+        <MusicIcon className="fas fa-backward" onClick={playPreviousTrack} />
+        <MusicIcon className="fas fa-pause"    onClick={pauseTrack} />
+        <MusicIcon className="fas fa-forward"  onClick={playNextTrack} />
         {data}
       </NowPlayingSection>
     );
