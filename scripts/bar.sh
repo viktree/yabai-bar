@@ -5,9 +5,11 @@ PATH=/usr/local/bin/:$PATH
 jq="/usr/local/bin/jq"
 
 playing=$(osascript ./bar.widget/scripts/playing.scpt | sed "s/\"/'/g")
-index=$(yabai -m query --spaces --display 1 | $jq '.[] | select(.focused == 1).index')
+primary_space_index=$(yabai -m query --spaces --display 1 | $jq '.[] | select(.focused == 1).index')
 primary_space_count=$(yabai -m query --spaces --display 1 | $jq length)
-# secondary_space_count=$(yabai -m query --spaces --display 2 | jq length)
+secondary_space_index=$(yabai -m query --spaces --display 1 | $jq '.[] | select(.focused == 1).index')
+secondary_space_count=$(yabai -m query --spaces --display 2 | jq length)
+display_count=$(yabai -m query --spaces | jq 'max_by(.display | tonumber).display')
 
 # shellcheck disable=SC2196
 check=$(pmset -g batt)
@@ -30,9 +32,14 @@ cat <<-EOF
     "battery": "$battery",
     "time": "$time",
     "yabai": {
+      "display_count": "$display_count",
       "primary": {
-          "current": "$index",
+          "current": "$primary_space_index",
           "total": "$primary_space_count"
+      },
+      "secondary": {
+          "current": "$secondary_space_index",
+          "total": "$secondary_space_count"
       }
     }
   }
